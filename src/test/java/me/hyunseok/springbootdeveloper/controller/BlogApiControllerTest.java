@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
 class BlogApiControllerTest {
@@ -78,7 +77,7 @@ class BlogApiControllerTest {
 
     @DisplayName("findAllArticles: 블로그 글 목록 조회")
     @Test
-    public void findAllArticles() throws Exception{
+    public void findAllArticles() throws Exception {
 
         // given: save article
         final String url = "/api/articles";
@@ -103,7 +102,7 @@ class BlogApiControllerTest {
 
     @DisplayName("findArticle: 특정 블로그 글 조회")
     @Test
-    public void findArticle() throws Exception{
+    public void findArticle() throws Exception {
 
         // given
         final String url = "/api/articles/{id}";
@@ -123,5 +122,29 @@ class BlogApiControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value(title))
                 .andExpect(jsonPath("$.content").value(content));
+    }
+
+    @DisplayName("deleteArticle: 블로그 글 삭제")
+    @Test
+    public void deleteArticle() throws Exception{
+
+        // given
+        final String url = "/api/articles/{id}";
+        final String title = "title";
+        final String content = "content";
+
+        Article savedArticle = blogRepository.save(Article.builder()
+                .title(title)
+                .content(content)
+                .build());
+
+        // when
+        mockMvc.perform(delete(url, savedArticle.getId()))
+                .andExpect(status().isOk());
+
+        // then
+        List<Article> articles = blogRepository.findAll();
+
+        assertThat(articles).isEmpty();
     }
 }
