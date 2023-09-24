@@ -12,7 +12,7 @@ public class AddArticleRequest {
 
     private String title;
     private String content;
-
+    
     // DTO to entity
     public Article toEntity() {
         return Article.builder()
