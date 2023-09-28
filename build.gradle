@@ -21,6 +21,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.projectlombok:lombok:1.18.22'
 
     runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'
@@ -28,6 +29,9 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.thymeleaf.extras:themeleaf-extras-springsecurity6'
+
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'     // java jwt
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'  // auto mapping between xml and java obj
 }
 
 tasks.named('test') {
